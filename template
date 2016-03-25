@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function help {
+cat << HELP
+NAME:
+    template -- Language Templates
+
+SYNOPSIS:
+    template <language> [<options>]
+    template <language> --help
+
+Languages:
+    cpp (c++), rust
+HELP
+
+  exit 0
+}
+
+[ $# -eq 0 ] && help
+
+if [ ! -f `dirname $0`/lang/$1 ] ; then
+  cat << WARN
+Error: language \`$1\` is unknown (try --help)
+WARN
+  exit 1
+fi
+
+bash `dirname $0`/lang/$1 ${@:2:($#-1)}

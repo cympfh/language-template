@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function help {
+  cat << HELP
+NAME:
+    template rust -- Rust Templates
+
+SYNOPSIS:
+    template rust
+
+* Scanner クラスの工夫だけ
+HELP
+  exit 0
+}
+
+[ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
+
+cat << EOF
+use std::io;
+use std::str::FromStr;
+
+fn main() {
+  let sc = Scanner::new();
+
+}
+
+#[allow(dead_code)]
+struct Scanner { stdin: io::Stdin, buffer: Vec<String>, }
+#[allow(dead_code)]
+impl Scanner {
+    fn new() -> Scanner { Scanner { stdin: io::stdin(), buffer: Vec::new() } }
+    fn cin<T: FromStr>(&mut self) -> T {
+        if self.buffer.len() == 0 {
+            let mut line = String::new();
+            let _ = self.stdin.read_line(&mut line);
+            for w in line.split(char::is_whitespace).map(String::from) {
+                if !w.is_empty() { self.buffer.push(w) }
+            }
+        }
+        match self.buffer[0].parse::<T>() {
+            Ok(a) => { self.buffer.remove(0); a },
+            Err(_) => panic!("parse err"),
+        }
+    }
+}
+EOF
