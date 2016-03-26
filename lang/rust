@@ -18,6 +18,8 @@ HELP
 cat << EOF
 use std::io;
 use std::str::FromStr;
+use std::cmp::{ min, max };
+use std::collections::{ BinaryHeap, VecDeque };
 
 fn main() {
   let mut sc = Scanner::new();
@@ -25,23 +27,23 @@ fn main() {
 }
 
 #[allow(dead_code)]
-struct Scanner { stdin: io::Stdin, buffer: Vec<String>, }
+struct Scanner { stdin: io::Stdin, buffer: VecDeque<String>, }
 #[allow(dead_code)]
 impl Scanner {
-    fn new() -> Scanner { Scanner { stdin: io::stdin(), buffer: Vec::new() } }
+    fn new() -> Scanner { Scanner { stdin: io::stdin(), buffer: VecDeque::new() } }
     fn reserve(&mut self) {
-        if self.buffer.len() == 0 {
+        while self.buffer.len() == 0 {
             let mut line = String::new();
             let _ = self.stdin.read_line(&mut line);
-            for w in line.split(char::is_whitespace).map(String::from) {
-                if !w.is_empty() { self.buffer.push(w) }
+            for w in line.split_whitespace() {
+                self.buffer.push_back(String::from(w));
             }
         }
     }
     fn cin<T: FromStr>(&mut self) -> T {
         self.reserve();
-        match self.buffer[0].parse::<T>() {
-            Ok(a) => { self.buffer.remove(0); a },
+        match self.buffer.pop_front().unwrap().parse::<T>() {
+            Ok(a) => a,
             Err(_) => panic!("parse err")
         }
     }
@@ -49,7 +51,7 @@ impl Scanner {
         self.reserve();
         let head = self.buffer[0].chars().nth(0).unwrap();
         let tail = String::from( &self.buffer[0][1..] );
-        if tail.len()>0 { self.buffer[0]=tail } else { self.buffer.remove(0); }
+        if tail.len()>0 { self.buffer[0]=tail } else { self.buffer.pop_front(); }
         head
     }
 }
