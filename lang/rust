@@ -20,7 +20,7 @@ use std::io;
 use std::str::FromStr;
 
 fn main() {
-  let sc = Scanner::new();
+  let mut sc = Scanner::new();
 
 }
 
@@ -29,7 +29,7 @@ struct Scanner { stdin: io::Stdin, buffer: Vec<String>, }
 #[allow(dead_code)]
 impl Scanner {
     fn new() -> Scanner { Scanner { stdin: io::stdin(), buffer: Vec::new() } }
-    fn cin<T: FromStr>(&mut self) -> T {
+    fn reserve(&mut self) {
         if self.buffer.len() == 0 {
             let mut line = String::new();
             let _ = self.stdin.read_line(&mut line);
@@ -37,10 +37,20 @@ impl Scanner {
                 if !w.is_empty() { self.buffer.push(w) }
             }
         }
+    }
+    fn cin<T: FromStr>(&mut self) -> T {
+        self.reserve();
         match self.buffer[0].parse::<T>() {
             Ok(a) => { self.buffer.remove(0); a },
-            Err(_) => panic!("parse err"),
+            Err(_) => panic!("parse err")
         }
+    }
+    fn get_char(&mut self) -> char {
+        self.reserve();
+        let head = self.buffer[0].chars().nth(0).unwrap();
+        let tail = String::from( &self.buffer[0][1..] );
+        if tail.len()>0 { self.buffer[0]=tail } else { self.buffer.remove(0); }
+        head
     }
 }
 EOF
