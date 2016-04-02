@@ -22,8 +22,8 @@ use std::cmp::{ min, max };
 use std::collections::{ BinaryHeap, VecDeque };
 
 macro_rules! trace {
-    ($var:expr) => ({
-        let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!($var), $var);
+    (\$var:expr) => ({
+        let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
     })
 }
 
