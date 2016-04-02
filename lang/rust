@@ -16,7 +16,7 @@ HELP
 [ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
 
 cat << EOF
-use std::io;
+use std::io::{ self, Write };
 use std::str::FromStr;
 use std::cmp::{ min, max };
 use std::collections::{ BinaryHeap, VecDeque };
