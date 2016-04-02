@@ -28,8 +28,7 @@ macro_rules! trace {
 }
 
 fn main() {
-  let mut sc = Scanner::new();
-
+    let mut sc = Scanner::new();
 }
 
 #[allow(dead_code)]
