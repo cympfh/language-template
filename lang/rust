@@ -26,6 +26,7 @@ macro_rules! trace {
         let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
     })
 }
+macro_rules! swap { (\$a:expr, \$b:expr) => ({ let t = \$b; \$b = \$a; \$a = t; }) }
 
 fn main() {
     let mut sc = Scanner::new();
