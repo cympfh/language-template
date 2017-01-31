@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function help {
+  cat << HELP
+NAME:
+    template ruby -- Ruby Templates
+
+SYNOPSIS:
+    template ruby
+HELP
+  exit 0
+}
+[ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
+
+cat << EOF
+xs=gets.split.map(&:to_i)
+n=gets.to_i
+EOF
