@@ -16,6 +16,7 @@ HELP
 [ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
 
 cat << EOF
+#![allow(unused_imports)]
 use std::io::{ self, Write };
 use std::str::FromStr;
 use std::cmp::{ min, max };
