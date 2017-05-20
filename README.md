@@ -7,7 +7,7 @@ SYNOPSIS:
     template <language> --help
 
 Languages:
-    cpp (c++), rust
+    cpp (c++), rust, ruby
 ```
 
 # Usage
