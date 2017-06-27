@@ -22,11 +22,13 @@ use std::str::FromStr;
 use std::cmp::{ min, max };
 use std::collections::{ BinaryHeap, VecDeque };
 
+#[allow(unused_macros)]
 macro_rules! trace {
     (\$var:expr) => ({
         let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
     })
 }
+#[allow(unused_macros)]
 macro_rules! swap { (\$a:expr, \$b:expr) => ({ let t = \$b; \$b = \$a; \$a = t; }) }
 
 fn main() {

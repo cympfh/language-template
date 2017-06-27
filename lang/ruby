@@ -13,6 +13,6 @@ HELP
 [ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
 
 cat << EOF
-xs=gets.split.map(&:to_i)
-n=gets.to_i
+xs = gets.split.map(&:to_i)
+n = gets.to_i
 EOF
