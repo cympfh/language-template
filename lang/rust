@@ -31,6 +31,8 @@ macro_rules! trace {
 #[allow(unused_macros)]
 macro_rules! swap { (\$a:expr, \$b:expr) => ({ let t = \$b; \$b = \$a; \$a = t; }) }
 
+const M: usize = 1_000_000_007;
+
 fn main() {
     let mut sc = Scanner::new();
 }
