@@ -58,12 +58,5 @@ impl Scanner {
             Err(_) => panic!("parse err")
         }
     }
-    fn get_char(&mut self) -> char {
-        self.reserve();
-        let head = self.buffer[0].chars().nth(0).unwrap();
-        let tail = String::from( &self.buffer[0][1..] );
-        if tail.len()>0 { self.buffer[0]=tail } else { self.buffer.pop_front(); }
-        head
-    }
 }
 EOF
