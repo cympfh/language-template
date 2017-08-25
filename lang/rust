@@ -24,12 +24,15 @@ use std::collections::{ BinaryHeap, VecDeque };
 
 #[allow(unused_macros)]
 macro_rules! trace {
-    (\$var:expr) => ({
+    (\$var:expr) => {
         let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
-    })
+    };
+    (\$(\$args:expr),*) => {
+        let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$(\$args),*), (\$(\$args),*));
+    };
 }
-#[allow(unused_macros)]
-macro_rules! swap { (\$a:expr, \$b:expr) => ({ let t = \$b; \$b = \$a; \$a = t; }) }
+
+const M: usize = 1_000_000_007;
 
 const M: usize = 1_000_000_007;
 
