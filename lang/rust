@@ -34,8 +34,6 @@ macro_rules! trace {
 
 const M: usize = 1_000_000_007;
 
-const M: usize = 1_000_000_007;
-
 fn main() {
     let mut sc = Scanner::new();
 }
