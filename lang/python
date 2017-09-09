@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function help {
+  cat << HELP
+NAME:
+    template python -- Python Templates
+
+SYNOPSIS:
+    template python
+HELP
+  exit 0
+}
+[ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
+
+cat << EOF
+M = 1000000007
+n = int(input())
+xs = list(map(int, input().split()))
+EOF
