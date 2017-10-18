@@ -32,6 +32,17 @@ macro_rules! trace {
     };
 }
 
+#[allow(unused_macros)]
+macro_rules! put {
+    (\$var:expr) => {
+        let _ = writeln!(&mut std::io::stdout(), "{}", \$var);
+    };
+    (\$var:expr, \$(\$args:expr),*) => {
+        let _ = write!(&mut std::io::stdout(), "{} ", \$var);
+        put!(\$(\$args),*);
+    };
+}
+
 const M: usize = 1_000_000_007;
 
 fn main() {
