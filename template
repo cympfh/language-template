@@ -10,7 +10,7 @@ SYNOPSIS:
     template <language> --help
 
 Languages:
-    cpp (c++), rust, ruby
+    cpp (c++), rust, ruby, python
 HELP
   exit 0
 }
