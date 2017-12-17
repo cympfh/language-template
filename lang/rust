@@ -27,9 +27,7 @@ macro_rules! trace {
     (\$var:expr) => {
         let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
     };
-    (\$(\$args:expr),*) => {
-        let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$(\$args),*), (\$(\$args),*));
-    };
+    (\$(\$args:expr),*) => { trace!((\$(\$args),*)) }
 }
 
 const M: usize = 1_000_000_007;
