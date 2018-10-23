@@ -18,6 +18,9 @@ HELP
 # when no args
 [ $# -eq 0 ] && help
 
+# help
+[ "$1" = "--help" -o "$1" = "-h" ] && help
+
 # resolve alias
 L=$( cat `dirname $0`/alias | grep "^$1 " | awk '$0=$2' | head -1 )
 [ "_$L" == "_" ] && L=$1
