@@ -13,6 +13,8 @@ HELP
 [ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
 
 cat << EOF
+require 'pp'
+def q a;PP.pp(a, STDERR);end
 M = 1_000_000_007
 xs = gets.split.map(&:to_i)
 n = gets.to_i
