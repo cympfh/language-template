@@ -17,42 +17,37 @@ HELP
 
 cat << EOF
 #![allow(unused_imports)]
-use std::io::{ self, Write };
-use std::str::FromStr;
+#![allow(unused_macros)]
 use std::cmp::{ min, max };
-use std::collections::{ BinaryHeap, VecDeque };
 
-#[allow(unused_macros)]
+macro_rules! ewriteln {
+    (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
+}
 macro_rules! trace {
-    (\$var:expr) => {
-        let _ = writeln!(&mut std::io::stderr(), ">>> {} = {:?}", stringify!(\$var), \$var);
-    };
-    (\$(\$args:expr),*) => { trace!((\$(\$args),*)) }
+    (\$x:expr) => { ewriteln!(">>> {} = {:?}", stringify!(\$x), \$x) };
+    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
 }
-
-#[allow(unused_macros)]
 macro_rules! put {
-    (\$var:expr) => {
-        let _ = writeln!(&mut std::io::stdout(), "{}", \$var);
-    };
-    (\$var:expr, \$(\$args:expr),*) => {
-        let _ = write!(&mut std::io::stdout(), "{} ", \$var);
-        put!(\$(\$args),*);
-    };
+    (\$x:expr) => { println!("{}", \$x) };
+    (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
 
-const M: usize = 1_000_000_007;
+const M: i64 = 1_000_000_007;
 
 fn main() {
     let mut sc = Scanner::new();
+    let n: usize = sc.cin();
+    trace!(n);
 }
 
-#[allow(dead_code)]
+use std::io::{self, Write};
+use std::str::FromStr;
+use std::collections::VecDeque;
+
 struct Scanner { stdin: io::Stdin, buffer: VecDeque<String>, }
-#[allow(dead_code)]
 impl Scanner {
     fn new() -> Scanner { Scanner { stdin: io::stdin(), buffer: VecDeque::new() } }
-    fn reserve(&mut self) {
+    fn cin<T: FromStr>(&mut self) -> T {
         while self.buffer.len() == 0 {
             let mut line = String::new();
             let _ = self.stdin.read_line(&mut line);
@@ -60,13 +55,7 @@ impl Scanner {
                 self.buffer.push_back(String::from(w));
             }
         }
-    }
-    fn cin<T: FromStr>(&mut self) -> T {
-        self.reserve();
-        match self.buffer.pop_front().unwrap().parse::<T>() {
-            Ok(a) => a,
-            Err(_) => panic!("parse err")
-        }
+        self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
 }
 EOF
