@@ -32,10 +32,12 @@ To see options of template for C++,
 $ template cpp --help
 ```
 
-## 方針
+<details>
+<summary>How it works</summary>
 
-1. 全部 bash
-    - 単純なのは cat でも良さそうなもんだけど `--help` くらい処理したい
-1. `template $1 $2 $3...` を `lang/$1 $2 $3...` に書き換えて bash で実行するだけ
-    - 書き換える前にファイルが存在するかとかぐらいのラッパー
+Command `template $1 $2 $3...` will be replaced to `lang/$1 $2 $3...` and it runs.
+Every `lang/$1` (`lang/cpp`, `lang/rust` ...) are scripts (i like shell script).
 
+For convinience, `$1` can be aliases (defined in `./alias`).
+For example, `template cc` will be `lang/cpp`.
+</details>
