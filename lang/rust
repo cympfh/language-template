@@ -32,6 +32,7 @@ macro_rules! put {
     (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
 
+#[allow(dead_code)]
 const M: i64 = 1_000_000_007;
 
 fn main() {
