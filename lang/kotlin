@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function help {
+  cat << HELP
+NAME:
+    template kotlin -- Kotlin Templates
+
+SYNOPSIS:
+    template kotlin
+HELP
+  exit 0
+}
+[ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
+
+cat << EOF
+fun main(args: Array<String>) {
+    fun readLn() = readLine()!!
+    fun readInt() = readLn().toInt()
+    fun readStrings() = readLn().split(" ")
+    fun readInts() = readLn().split(" ").map{it.toInt()}
+
+    val n = readInt()
+    val xs = readInts()
+    println("${n} ${xs}")
+}
+EOF
