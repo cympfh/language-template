@@ -19,6 +19,14 @@ cat << EOF
 #![allow(unused_imports, unused_macros, dead_code)]
 
 macro_rules! min {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        if let Some(z) = it.next() {
+            Some(it.fold(z, |x, y| min!(x, y)))
+        } else {
+            None
+        }
+    }};
     (\$x:expr) => (\$x);
     (\$x:expr, \$(\$ys:expr),*) => {{
         let t = min!(\$(\$ys),*);
@@ -26,12 +34,21 @@ macro_rules! min {
     }}
 }
 macro_rules! max {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        if let Some(z) = it.next() {
+            Some(it.fold(z, |x, y| max!(x, y)))
+        } else {
+            None
+        }
+    }};
     (\$x:expr) => (\$x);
     (\$x:expr, \$(\$ys:expr),*) => {{
         let t = max!(\$(\$ys),*);
         if \$x > t { \$x } else { t }
     }}
 }
+
 
 macro_rules! ewriteln {
     (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
@@ -41,6 +58,12 @@ macro_rules! trace {
     (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
 }
 macro_rules! put {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        if let Some(x) = it.next() { print!("{}", x); }
+        for x in it { print!(" {}", x); }
+        println!("");
+    }};
     (\$x:expr) => { println!("{}", \$x) };
     (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
