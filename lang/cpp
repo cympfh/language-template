@@ -154,6 +154,7 @@ int main() {
     random_device dev;
     mt19937 rand(dev());
 
+    int n; cin >> n;
     return 0;
 }
 TEMP
@@ -294,6 +295,7 @@ int main() {
     cout.precision(10);
     Real a,b,c,d,e,f;
 
+    int n; cin >> n;
     return 0;
 }
 TEMP
@@ -304,9 +306,10 @@ elif [ $TYPE -eq 2 ]; then
   cat << TEMP
 using namespace std;
 #define rep(i,n) for(int i=0;i<(n);++i)
+#define trace(var) cerr<<">>> "<<#var<<" = "<<var<<endl;
 
 int main() {
-
+    int n; cin >> n;
     return 0;
 }
 TEMP
