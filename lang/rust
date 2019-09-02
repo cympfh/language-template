@@ -21,11 +21,7 @@ cat << EOF
 macro_rules! min {
     (.. \$x:expr) => {{
         let mut it = \$x.iter();
-        if let Some(z) = it.next() {
-            Some(it.fold(z, |x, y| min!(x, y)))
-        } else {
-            None
-        }
+        it.next().map(|z| it.fold(z, |x, y| min!(x, y)))
     }};
     (\$x:expr) => (\$x);
     (\$x:expr, \$(\$ys:expr),*) => {{
@@ -36,11 +32,7 @@ macro_rules! min {
 macro_rules! max {
     (.. \$x:expr) => {{
         let mut it = \$x.iter();
-        if let Some(z) = it.next() {
-            Some(it.fold(z, |x, y| max!(x, y)))
-        } else {
-            None
-        }
+        it.next().map(|z| it.fold(z, |x, y| max!(x, y)))
     }};
     (\$x:expr) => (\$x);
     (\$x:expr, \$(\$ys:expr),*) => {{
