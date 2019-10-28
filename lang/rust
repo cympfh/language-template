@@ -85,5 +85,7 @@ impl Scanner {
         }
         self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
+    fn chars(&mut self) -> Vec<char> { self.cin::<String>().chars().collect() }
+    fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> { (0..n).map(|_| self.cin()).collect() }
 }
 EOF
