@@ -41,7 +41,6 @@ macro_rules! max {
     }}
 }
 
-
 macro_rules! ewriteln {
     (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
 }
