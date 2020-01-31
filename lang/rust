@@ -41,12 +41,9 @@ macro_rules! max {
     }}
 }
 
-macro_rules! ewriteln {
-    (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
-}
 macro_rules! trace {
-    (\$x:expr) => { ewriteln!(">>> {} = {:?}", stringify!(\$x), \$x) };
-    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
+    (\$x:expr) => { dbg!(\$x); };
+    (\$(\$xs:expr),*) => { dbg!((\$(\$xs),*)); }
 }
 macro_rules! put {
     (.. \$x:expr) => {{
