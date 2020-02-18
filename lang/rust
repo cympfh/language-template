@@ -40,10 +40,12 @@ macro_rules! max {
         if \$x > t { \$x } else { t }
     }}
 }
-
+macro_rules! ewriteln {
+    (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
+}
 macro_rules! trace {
-    (\$x:expr) => { dbg!(\$x); };
-    (\$(\$xs:expr),*) => { dbg!((\$(\$xs),*)); }
+    (\$x:expr) => { ewriteln!(">>> {} = {:?}", stringify!(\$x), \$x) };
+    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
 }
 macro_rules! put {
     (.. \$x:expr) => {{
