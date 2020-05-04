@@ -66,15 +66,15 @@ fn main() {
     trace!(n);
 }
 
+use std::collections::VecDeque;
 use std::io::{self, Write};
 use std::str::FromStr;
-use std::collections::VecDeque;
 
 struct Scanner { stdin: io::Stdin, buffer: VecDeque<String>, }
 impl Scanner {
     fn new() -> Self { Scanner { stdin: io::stdin(), buffer: VecDeque::new() } }
     fn cin<T: FromStr>(&mut self) -> T {
-        while self.buffer.len() == 0 {
+        while self.buffer.is_empty() {
             let mut line = String::new();
             let _ = self.stdin.read_line(&mut line);
             for w in line.split_whitespace() {
