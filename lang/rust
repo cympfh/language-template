@@ -40,11 +40,11 @@ macro_rules! max {
         if \$x > t { \$x } else { t }
     }}
 }
-macro_rules! ewriteln {
-    (\$(\$args:expr),*) => { let _ = writeln!(&mut std::io::stderr(), \$(\$args),*); };
-}
 macro_rules! trace {
-    (\$x:expr) => { ewriteln!(">>> {} = {:?}", stringify!(\$x), \$x) };
+    (\$x:expr) => {
+        #[cfg(debug_assertions)]
+        eprintln!(">>> {} = {:?}", stringify!(\$x), \$x)
+    };
     (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
 }
 macro_rules! put {
@@ -85,5 +85,8 @@ impl Scanner {
     }
     fn chars(&mut self) -> Vec<char> { self.cin::<String>().chars().collect() }
     fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> { (0..n).map(|_| self.cin()).collect() }
+}
+fn flush() {
+    std::io::stdout().flush().unwrap();
 }
 EOF
