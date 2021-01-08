@@ -17,48 +17,8 @@ HELP
 
 cat << EOF
 #![allow(unused_imports, unused_macros, dead_code)]
-
-macro_rules! min {
-    (.. \$x:expr) => {{
-        let mut it = \$x.iter();
-        it.next().map(|z| it.fold(z, |x, y| min!(x, y)))
-    }};
-    (\$x:expr) => (\$x);
-    (\$x:expr, \$(\$ys:expr),*) => {{
-        let t = min!(\$(\$ys),*);
-        if \$x < t { \$x } else { t }
-    }}
-}
-macro_rules! max {
-    (.. \$x:expr) => {{
-        let mut it = \$x.iter();
-        it.next().map(|z| it.fold(z, |x, y| max!(x, y)))
-    }};
-    (\$x:expr) => (\$x);
-    (\$x:expr, \$(\$ys:expr),*) => {{
-        let t = max!(\$(\$ys),*);
-        if \$x > t { \$x } else { t }
-    }}
-}
-macro_rules! trace {
-    (\$x:expr) => {
-        #[cfg(debug_assertions)]
-        eprintln!(">>> {} = {:?}", stringify!(\$x), \$x)
-    };
-    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
-}
-macro_rules! put {
-    (.. \$x:expr) => {{
-        let mut it = \$x.iter();
-        if let Some(x) = it.next() { print!("{}", x); }
-        for x in it { print!(" {}", x); }
-        println!("");
-    }};
-    (\$x:expr) => { println!("{}", \$x) };
-    (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
-}
-
-const M: i64 = 1_000_000_007;
+use std::collections::*;
+use std::cmp::*;
 
 fn main() {
     let mut sc = Scanner::new();
@@ -66,7 +26,6 @@ fn main() {
     trace!(n);
 }
 
-use std::collections::VecDeque;
 use std::io::{self, Write};
 use std::str::FromStr;
 
@@ -88,5 +47,48 @@ impl Scanner {
 }
 fn flush() {
     std::io::stdout().flush().unwrap();
+}
+#[macro_export]
+macro_rules! min {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        it.next().map(|z| it.fold(z, |x, y| min!(x, y)))
+    }};
+    (\$x:expr) => (\$x);
+    (\$x:expr, \$(\$ys:expr),*) => {{
+        let t = min!(\$(\$ys),*);
+        if \$x < t { \$x } else { t }
+    }}
+}
+#[macro_export]
+macro_rules! max {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        it.next().map(|z| it.fold(z, |x, y| max!(x, y)))
+    }};
+    (\$x:expr) => (\$x);
+    (\$x:expr, \$(\$ys:expr),*) => {{
+        let t = max!(\$(\$ys),*);
+        if \$x > t { \$x } else { t }
+    }}
+}
+#[macro_export]
+macro_rules! trace {
+    (\$x:expr) => {
+        #[cfg(debug_assertions)]
+        eprintln!(">>> {} = {:?}", stringify!(\$x), \$x)
+    };
+    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
+}
+#[macro_export]
+macro_rules! put {
+    (.. \$x:expr) => {{
+        let mut it = \$x.iter();
+        if let Some(x) = it.next() { print!("{}", x); }
+        for x in it { print!(" {}", x); }
+        println!("");
+    }};
+    (\$x:expr) => { println!("{}", \$x) };
+    (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
 EOF
