@@ -17,21 +17,28 @@ HELP
 
 cat << EOF
 #![allow(unused_imports, unused_macros, dead_code)]
-use std::collections::*;
-use std::cmp::*;
+use std::{cmp::*, collections::*};
 
 fn main() {
     let mut sc = Scanner::new();
     let n: usize = sc.cin();
-    trace!(n);
 }
 
+// {{{
 use std::io::{self, Write};
 use std::str::FromStr;
 
-struct Scanner { stdin: io::Stdin, buffer: VecDeque<String>, }
+struct Scanner {
+    stdin: io::Stdin,
+    buffer: VecDeque<String>,
+}
 impl Scanner {
-    fn new() -> Self { Scanner { stdin: io::stdin(), buffer: VecDeque::new() } }
+    fn new() -> Self {
+        Self {
+            stdin: io::stdin(),
+            buffer: VecDeque::new(),
+        }
+    }
     fn cin<T: FromStr>(&mut self) -> T {
         while self.buffer.is_empty() {
             let mut line = String::new();
@@ -42,8 +49,12 @@ impl Scanner {
         }
         self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
-    fn chars(&mut self) -> Vec<char> { self.cin::<String>().chars().collect() }
-    fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> { (0..n).map(|_| self.cin()).collect() }
+    fn chars(&mut self) -> Vec<char> {
+        self.cin::<String>().chars().collect()
+    }
+    fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> {
+        (0..n).map(|_| self.cin()).collect()
+    }
 }
 fn flush() {
     std::io::stdout().flush().unwrap();
@@ -91,4 +102,5 @@ macro_rules! put {
     (\$x:expr) => { println!("{}", \$x) };
     (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
+// }}}
 EOF
