@@ -28,18 +28,18 @@ fn main() {
 use std::io::{self, Write};
 use std::str::FromStr;
 
-struct Scanner {
+pub struct Scanner {
     stdin: io::Stdin,
     buffer: VecDeque<String>,
 }
 impl Scanner {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             stdin: io::stdin(),
             buffer: VecDeque::new(),
         }
     }
-    fn cin<T: FromStr>(&mut self) -> T {
+    pub fn cin<T: FromStr>(&mut self) -> T {
         while self.buffer.is_empty() {
             let mut line = String::new();
             let _ = self.stdin.read_line(&mut line);
@@ -49,11 +49,14 @@ impl Scanner {
         }
         self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
-    fn chars(&mut self) -> Vec<char> {
+    pub fn chars(&mut self) -> Vec<char> {
         self.cin::<String>().chars().collect()
     }
-    fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> {
+    pub fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> {
         (0..n).map(|_| self.cin()).collect()
+    }
+    pub fn usize1(&mut self) -> usize {
+        return self.cin::<usize>() - 1;
     }
 }
 fn flush() {
