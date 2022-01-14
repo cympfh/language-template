@@ -49,14 +49,14 @@ impl Scanner {
         }
         self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
+    pub fn usize1(&mut self) -> usize {
+        self.cin::<usize>() - 1
+    }
     pub fn chars(&mut self) -> Vec<char> {
         self.cin::<String>().chars().collect()
     }
     pub fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> {
         (0..n).map(|_| self.cin()).collect()
-    }
-    pub fn usize1(&mut self) -> usize {
-        return self.cin::<usize>() - 1;
     }
 }
 fn flush() {
@@ -105,5 +105,15 @@ macro_rules! put {
     (\$x:expr) => { println!("{}", \$x) };
     (\$x:expr, \$(\$xs:expr),*) => { print!("{} ", \$x); put!(\$(\$xs),*) }
 }
+#[macro_export]
+macro_rules! ndarray {
+    (\$x:expr;) => {
+        \$x
+    };
+    (\$x:expr; \$size:expr \$( , \$rest:expr )*) => {
+        vec![ndarray!(\$x; \$(\$rest),*); \$size]
+    };
+}
+
 // }}}
 EOF

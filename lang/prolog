@@ -1,0 +1,59 @@
+#!/bin/bash
+
+cat <<EOM
+main :-
+    get_number(A),
+    solve(_, Ans),
+    writeln(Ans).
+
+solve(_, "Yes").
+
+% stdio
+get_string(String) :-
+    read_string(current_input, ' \n', '', _, String).
+
+get_chars(Chars) :-
+    get_string(String),
+    string_chars(String, Chars).
+
+get_atom(Atom) :-
+    get_string(String),
+    atom_string(Atom, String).
+
+get_number(Number) :-
+    get_string(String),
+    number_string(Number, String).
+
+get_numbers(0, []).
+get_numbers(N, [X|Xs]) :-
+    get_number(X),
+    N1 is N - 1,
+    get_numbers(N1, Xs).
+
+% math
+even(X) :- X mod 2 =:= 0.
+odd(X) :- X mod 2 =:= 1.
+
+% list
+head([X|_], X).
+tail([_|Xs], Xs).
+last([X], X).
+last([_|Xs], Z) :- last(Xs, Z).
+take(0, _, []).
+take(_, [], []).
+take(Length, [X|Xs], Prefix) :-
+    M is Length - 1,
+    take(M, Xs, Ps),
+    Prefix = [X|Ps].
+minimum([X], X).
+minimum([X|Xs], Z) :- minimum(Xs, U), Z is min(X, U).
+maximum([X], X).
+maximum([X|Xs], Z) :- maximum(Xs, U), Z is max(X, U).
+sum([], 0).
+sum([X|Xs], S) :- sum(Xs, T), S is X + T.
+nth([X|_], 1, X).
+nth([_|Xs], K, Ans) :- K1 is K - 1, nth(Xs, K1, Ans).
+count([], _, 0).
+count([X|Rest], X, N) :- !, count(Rest, X, M), N is M + 1.
+count([_|Rest], X, N) :- count(Rest, X, N).
+EOM
