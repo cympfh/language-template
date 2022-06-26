@@ -90,7 +90,6 @@ macro_rules! trace {
 }
 #[macro_export]
 macro_rules! put {
-    (yes) => {println!("Yes")}; (no) => {println!("No")};
     (# \$a:ident) => {println!("{}", stringify!(\$a))};
     (.. \$x:expr) => {{
         let mut it = \$x.iter();
@@ -103,9 +102,7 @@ macro_rules! put {
 }
 #[macro_export]
 macro_rules! ndarray {
-    (\$x:expr;) => {
-        \$x
-    };
+    (\$x:expr;) => { \$x };
     (\$x:expr; \$size:expr \$( , \$rest:expr )*) => {
         vec![ndarray!(\$x; \$(\$rest),*); \$size]
     };
