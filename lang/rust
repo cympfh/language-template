@@ -20,32 +20,23 @@ cat << EOF
 use std::{cmp::*, collections::*};
 
 fn main() {
-    let mut sc = Scanner::new();
+    let mut sc = Scanner::default();
     let n: usize = sc.cin();
 }
 
 // {{{
 use std::io::{self, Write};
 use std::str::FromStr;
-
+#[derive(Default)]
 pub struct Scanner {
-    stdin: io::Stdin,
     buffer: VecDeque<String>,
 }
 impl Scanner {
-    pub fn new() -> Self {
-        Self {
-            stdin: io::stdin(),
-            buffer: VecDeque::new(),
-        }
-    }
     pub fn cin<T: FromStr>(&mut self) -> T {
         while self.buffer.is_empty() {
             let mut line = String::new();
-            let _ = self.stdin.read_line(&mut line);
-            for w in line.split_whitespace() {
-                self.buffer.push_back(String::from(w));
-            }
+            let _ = io::stdin().read_line(&mut line);
+            self.buffer = line.split_whitespace().map(|w| String::from(w)).collect();
         }
         self.buffer.pop_front().unwrap().parse::<T>().ok().unwrap()
     }
@@ -58,9 +49,12 @@ impl Scanner {
     pub fn vec<T: FromStr>(&mut self, n: usize) -> Vec<T> {
         (0..n).map(|_| self.cin()).collect()
     }
+    pub fn pair<S: FromStr, T: FromStr>(&mut self) -> (S, T) {
+        (self.cin::<S>(), self.cin::<T>())
+    }
 }
 fn flush() {
-    std::io::stdout().flush().unwrap();
+    io::stdout().flush().unwrap();
 }
 #[macro_export]
 macro_rules! min {
