@@ -107,6 +107,23 @@ macro_rules! ndarray {
         vec![ndarray!(\$x; \$(\$rest),*); \$size]
     };
 }
-
+/// Array-indexing by i64.
+/// (Vec<Vec<..<T>..>>; i64, i64, ..) => Option<T>
+#[macro_export]
+macro_rules! at {
+    (\$s:expr;) => { Some(\$s) };
+    (\$s:expr; \$idx:expr \$(,\$args:expr)* \$(,)?) => {
+        if 0 <= \$idx {
+            let idx_usize = \$idx as usize;
+            if idx_usize < \$s.len() {
+                at!(\$s[idx_usize]; \$(\$args),*)
+            } else {
+                None
+            }
+        } else {
+            None
+        }
+    }
+}
 // }}}
 EOF
