@@ -13,7 +13,20 @@ HELP
 [ "_$1" = "_-h" -o "_$1" = "_--help" ] && help
 
 cat << EOF
-M = 1000000007
-n = int(input())
-xs = list(map(int, input().split()))
+from queue import Queue
+
+
+def main():
+  n = read(int)
+
+
+def read(dtype, q=Queue()):
+  while q.empty():
+    for i in input().split():
+      q.put(i)
+  return dtype(q.get())
+
+
+if __name__ == "__main__":
+  main()
 EOF
