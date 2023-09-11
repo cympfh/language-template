@@ -82,11 +82,14 @@ macro_rules! max {
 }
 #[macro_export]
 macro_rules! trace {
-    (\$x:expr) => {
+    (# \$a:ident \$(,)? \$(;)? \$(\$xs:expr),* \$(,)? ) => {
         #[cfg(debug_assertions)]
-        eprintln!(">>> {} = {:?}", stringify!(\$x), \$x)
+        eprintln!("[{}] {} = {:?}", stringify!(\$a), stringify!(\$(\$xs),*), (\$(\$xs),*))
     };
-    (\$(\$xs:expr),*) => { trace!((\$(\$xs),*)) }
+    (\$(\$xs:expr),* \$(,)?) => {
+        #[cfg(debug_assertions)]
+        eprintln!(">>> {} = {:?}", stringify!(\$(\$xs),*), (\$(\$xs),*))
+    };
 }
 #[macro_export]
 macro_rules! put {
