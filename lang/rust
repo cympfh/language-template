@@ -66,7 +66,12 @@ macro_rules! min {
     (\$x:expr, \$(\$ys:expr),* \$(,)*) => {{
         let t = min!(\$(\$ys),*);
         if \$x < t { \$x } else { t }
-    }}
+    }};
+    // min= assignment
+    (\$x:expr; \$(\$ys:expr),* \$(,)*) => {{
+        let m = min!(\$(\$ys),*);
+        if \$x > m { \$x = m; }
+    }};
 }
 #[macro_export]
 macro_rules! max {
@@ -78,7 +83,12 @@ macro_rules! max {
     (\$x:expr, \$(\$ys:expr),* \$(,)*) => {{
         let t = max!(\$(\$ys),*);
         if \$x > t { \$x } else { t }
-    }}
+    }};
+    // max= assignment
+    (\$x:expr; \$(\$ys:expr),* \$(,)*) => {{
+        let m = max!(\$(\$ys),*);
+        if \$x < m { \$x = m; }
+    }};
 }
 #[macro_export]
 macro_rules! trace {
